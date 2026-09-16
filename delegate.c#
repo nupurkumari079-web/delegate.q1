@@ -1,0 +1,45 @@
+﻿using System;
+
+class multicast
+{
+    
+    delegate int Calculator(int a, int b);
+
+    static int Addition(int a, int b)
+    {
+        return a + b;
+    }
+
+    static int Subtraction(int a, int b)
+    {
+        return a - b;
+    }
+
+    static int Multiplication(int a, int b)
+    {
+        return a * b;
+    }
+
+    static int Division(int a, int b)
+    {
+        return a / b;
+    }
+
+    static void Main()
+    {
+        Calculator calc = Addition;
+
+        calc += Subtraction;
+        calc += Multiplication;
+        calc += Division;
+
+        //
+        Delegate[] methods = calc.GetInvocationList();
+
+        foreach (Calculator method in methods)
+        {
+            int result = method(20, 5);
+            Console.WriteLine("Result = " + result);
+        }
+    }
+}
